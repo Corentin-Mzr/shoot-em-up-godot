@@ -5,6 +5,22 @@
 Shoot'Em Up game made with the Godot game engine.
 Based on [**Godot 4 Crash Course by Net Ninja**](https://www.youtube.com/playlist?list=PL4cUxeGkcC9iHCXBpxbdsOByZ55Ez4bgF)
 
+### Main Menu
+
+![Main Menu](images/main_menu.png)
+
+### Options Menu
+
+![Options Menu](images/options_menu.png)
+
+### Gameplay
+
+![Gameplay](images/gameplay.png)
+
+### Game Over
+
+![Game Over](images/gameover.png)
+
 ## Credits
 
 - Game made with the [**Godot Game Engine**](https://godotengine.org/)
