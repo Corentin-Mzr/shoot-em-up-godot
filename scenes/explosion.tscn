@@ -1,0 +1,55 @@
+[gd_scene load_steps=11 format=3 uid="uid://dmy5h2t3tlnqe"]
+
+[ext_resource type="Texture2D" uid="uid://hvwh5xuf4hpq" path="res://sprites/explosion/Explosion-0001-1.png" id="1_bctxa"]
+[ext_resource type="Texture2D" uid="uid://7b7b7h58grp2" path="res://sprites/explosion/Explosion-0001-2.png" id="2_pi604"]
+[ext_resource type="Texture2D" uid="uid://by5uygehdbj51" path="res://sprites/explosion/Explosion-0001-3.png" id="3_iyufl"]
+[ext_resource type="Texture2D" uid="uid://cocve7j1u2l1d" path="res://sprites/explosion/Explosion-0001-4.png" id="4_m5maf"]
+[ext_resource type="Texture2D" uid="uid://c5o0xxx2lyvj2" path="res://sprites/explosion/Explosion-0001-5.png" id="5_pwxr0"]
+[ext_resource type="Texture2D" uid="uid://co17jmgidj5su" path="res://sprites/explosion/Explosion-0001-6.png" id="6_32hru"]
+[ext_resource type="Texture2D" uid="uid://ccrolc8h6rrlt" path="res://sprites/explosion/Explosion-0001-7.png" id="7_qnaom"]
+[ext_resource type="Script" path="res://scenes/explosion.gd" id="8_u5e2k"]
+[ext_resource type="AudioStream" uid="uid://bsblc3wsenecx" path="res://sounds/explosion.wav" id="9_avmuu"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_an8cb"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_bctxa")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_pi604")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_iyufl")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_m5maf")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_pwxr0")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_32hru")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_qnaom")
+}],
+"loop": false,
+"name": &"default",
+"speed": 12.0
+}]
+
+[node name="Explosion" type="AnimatedSprite2D"]
+texture_filter = 1
+sprite_frames = SubResource("SpriteFrames_an8cb")
+autoplay = "default"
+frame = 6
+frame_progress = 1.0
+script = ExtResource("8_u5e2k")
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("9_avmuu")
+autoplay = true
+bus = &"SFX"
+
+[connection signal="animation_finished" from="." to="." method="_on_animation_finished"]

@@ -1,0 +1,96 @@
+[gd_scene load_steps=10 format=3 uid="uid://b0058nxlvwy0y"]
+
+[ext_resource type="Script" path="res://scenes/enemy.gd" id="1_lagwe"]
+[ext_resource type="Texture2D" uid="uid://bghs74cy3ulh5" path="res://sprites/enemies/enemy-4.png" id="2_kxojs"]
+[ext_resource type="Texture2D" uid="uid://cfr30l7x7ovc3" path="res://sprites/enemies/exhaust-4.png" id="3_f4w0s"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_do6fi"]
+radius = 13.0
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_brbpx"]
+atlas = ExtResource("3_f4w0s")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_armfn"]
+atlas = ExtResource("3_f4w0s")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4l6sv"]
+atlas = ExtResource("3_f4w0s")
+region = Rect2(32, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_call2"]
+atlas = ExtResource("3_f4w0s")
+region = Rect2(48, 0, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_igkn3"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_brbpx")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_armfn")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4l6sv")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_call2")
+}],
+"loop": true,
+"name": &"default",
+"speed": 12.0
+}]
+
+[node name="Enemy" type="Area2D"]
+collision_layer = 32
+collision_mask = 9
+script = ExtResource("1_lagwe")
+
+[node name="ShipSprite2D" type="Sprite2D" parent="."]
+texture_filter = 1
+rotation = -1.5708
+texture = ExtResource("2_kxojs")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
+shape = SubResource("CircleShape2D_do6fi")
+
+[node name="MoveTimer" type="Timer" parent="."]
+wait_time = 2.0
+one_shot = true
+
+[node name="IdleTimer" type="Timer" parent="."]
+wait_time = 5.0
+one_shot = true
+
+[node name="ShootDurationTimer" type="Timer" parent="."]
+one_shot = true
+
+[node name="ShootCooldownBetweenBulletsTimer" type="Timer" parent="."]
+wait_time = 0.2
+one_shot = true
+
+[node name="ShootCooldownBetweenSalvoTimer" type="Timer" parent="."]
+wait_time = 3.0
+one_shot = true
+
+[node name="ExhaustAnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+z_index = -1
+texture_filter = 1
+position = Vector2(-25, 0)
+rotation = -1.5708
+sprite_frames = SubResource("SpriteFrames_igkn3")
+autoplay = "default"
+frame_progress = 0.312422
+
+[node name="BulletMarkers" type="Node2D" parent="."]
+
+[connection signal="area_entered" from="." to="." method="_on_area_entered"]
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="timeout" from="MoveTimer" to="." method="_on_move_timer_timeout"]
+[connection signal="timeout" from="IdleTimer" to="." method="_on_idle_timer_timeout"]
+[connection signal="timeout" from="ShootDurationTimer" to="." method="_on_shoot_duration_timer_timeout"]
+[connection signal="timeout" from="ShootCooldownBetweenBulletsTimer" to="." method="_on_shoot_cooldown_between_bullets_timer_timeout"]
+[connection signal="timeout" from="ShootCooldownBetweenSalvoTimer" to="." method="_on_shoot_cooldown_between_salvo_timer_timeout"]

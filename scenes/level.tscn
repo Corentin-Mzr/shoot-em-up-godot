@@ -1,0 +1,98 @@
+[gd_scene load_steps=11 format=3 uid="uid://bm0hci4ggpfxd"]
+
+[ext_resource type="Script" path="res://scenes/level.gd" id="1_kfqe0"]
+[ext_resource type="PackedScene" uid="uid://u1ihpsbnfph6" path="res://scenes/player.tscn" id="2_2dr0s"]
+[ext_resource type="Texture2D" uid="uid://ct6a7tgv1xqn5" path="res://sprites/background/Background_Full-0001.png" id="3_uxfob"]
+[ext_resource type="PackedScene" uid="uid://c6i83uw7ll4nc" path="res://scenes/level_ui.tscn" id="4_vv0mh"]
+[ext_resource type="PackedScene" uid="uid://b72h0fpwa4pr2" path="res://scenes/game_over.tscn" id="5_wfeko"]
+[ext_resource type="PackedScene" uid="uid://flnw57hctir3" path="res://scenes/pause_menu.tscn" id="6_e0c7t"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_31xnf"]
+size = Vector2(20, 360)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_4xpqg"]
+size = Vector2(20, 360)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_nlhe0"]
+size = Vector2(640, 20)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_16v1t"]
+size = Vector2(640, 20)
+
+[node name="Level" type="Node2D"]
+script = ExtResource("1_kfqe0")
+
+[node name="Background" type="Sprite2D" parent="."]
+z_index = -1
+texture_filter = 1
+position = Vector2(320, 180)
+scale = Vector2(2, 2)
+texture = ExtResource("3_uxfob")
+
+[node name="Player" parent="." instance=ExtResource("2_2dr0s")]
+
+[node name="Borders" type="Node2D" parent="."]
+
+[node name="wall_left" type="StaticBody2D" parent="Borders"]
+position = Vector2(-10, 180)
+collision_layer = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Borders/wall_left"]
+shape = SubResource("RectangleShape2D_31xnf")
+
+[node name="wall_right" type="StaticBody2D" parent="Borders"]
+position = Vector2(650, 180)
+collision_layer = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Borders/wall_right"]
+shape = SubResource("RectangleShape2D_4xpqg")
+
+[node name="wall_down" type="StaticBody2D" parent="Borders"]
+position = Vector2(320, 360)
+collision_layer = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Borders/wall_down"]
+shape = SubResource("RectangleShape2D_nlhe0")
+
+[node name="wall_up" type="StaticBody2D" parent="Borders"]
+position = Vector2(320, -10)
+collision_layer = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Borders/wall_up"]
+shape = SubResource("RectangleShape2D_16v1t")
+
+[node name="AsteroidTimer" type="Timer" parent="."]
+autostart = true
+
+[node name="Asteroids" type="Node2D" parent="."]
+
+[node name="PlayerBullets" type="Node2D" parent="."]
+
+[node name="UI" parent="." instance=ExtResource("4_vv0mh")]
+
+[node name="GameOver" parent="." instance=ExtResource("5_wfeko")]
+visible = false
+
+[node name="Explosions" type="Node2D" parent="."]
+
+[node name="PauseMenu" parent="." instance=ExtResource("6_e0c7t")]
+
+[node name="Bonuses" type="Node2D" parent="."]
+
+[node name="Enemies" type="Node2D" parent="."]
+
+[node name="EnemyTimer" type="Timer" parent="."]
+wait_time = 4.0
+autostart = true
+
+[node name="EnemyBullets" type="Node2D" parent="."]
+
+[node name="ScoreMultTimer" type="Timer" parent="."]
+wait_time = 10.0
+one_shot = true
+
+[connection signal="death" from="Player" to="." method="_on_player_death"]
+[connection signal="shoot" from="Player" to="." method="_on_player_shoot"]
+[connection signal="timeout" from="AsteroidTimer" to="." method="_on_asteroid_timer_timeout"]
+[connection signal="timeout" from="EnemyTimer" to="." method="_on_enemy_timer_timeout"]
+[connection signal="timeout" from="ScoreMultTimer" to="." method="_on_score_mult_timer_timeout"]

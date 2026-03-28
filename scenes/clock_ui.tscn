@@ -1,0 +1,31 @@
+[gd_scene load_steps=4 format=3 uid="uid://cj22kunlcjujf"]
+
+[ext_resource type="Texture2D" uid="uid://bjwf7bpj2678v" path="res://sprites/ui/clock.png" id="1_5wpm0"]
+[ext_resource type="Script" path="res://scenes/clock_ui.gd" id="1_7rf60"]
+[ext_resource type="FontFile" uid="uid://44beng3vpcfv" path="res://fonts/DePixelBreit.ttf" id="2_g8kg4"]
+
+[node name="ClockUI" type="HBoxContainer"]
+offset_right = 76.0
+offset_bottom = 17.0
+theme_override_constants/separation = 5
+script = ExtResource("1_7rf60")
+
+[node name="TextureRect" type="TextureRect" parent="."]
+texture_filter = 1
+layout_mode = 2
+texture = ExtResource("1_5wpm0")
+stretch_mode = 2
+
+[node name="Label" type="Label" parent="."]
+texture_filter = 1
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_g8kg4")
+theme_override_font_sizes/font_size = 16
+text = "00:00"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Timer" type="Timer" parent="."]
+autostart = true
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

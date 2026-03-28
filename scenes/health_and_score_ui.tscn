@@ -1,0 +1,57 @@
+[gd_scene load_steps=4 format=3 uid="uid://d1w1o4mkxgfyl"]
+
+[ext_resource type="Texture2D" uid="uid://bt344800y8yng" path="res://sprites/ui/score.png" id="1_invt8"]
+[ext_resource type="Script" path="res://scenes/health_and_score_ui.gd" id="2_5jaum"]
+[ext_resource type="Texture2D" uid="uid://d34ude76labvb" path="res://sprites/ui/heart-full.png" id="2_gbre4"]
+
+[node name="HealthAndScoreUI" type="TextureRect"]
+texture_filter = 1
+offset_right = 80.0
+offset_bottom = 22.0
+texture = ExtResource("1_invt8")
+stretch_mode = 2
+script = ExtResource("2_5jaum")
+
+[node name="Health" type="HBoxContainer" parent="."]
+texture_filter = 1
+layout_mode = 2
+offset_left = 20.0
+offset_right = 80.0
+offset_bottom = 15.0
+theme_override_constants/separation = 0
+
+[node name="TextureRect" type="TextureRect" parent="Health"]
+texture_filter = 1
+layout_mode = 2
+texture = ExtResource("2_gbre4")
+stretch_mode = 2
+
+[node name="TextureRect2" type="TextureRect" parent="Health"]
+texture_filter = 1
+layout_mode = 2
+texture = ExtResource("2_gbre4")
+stretch_mode = 2
+
+[node name="TextureRect3" type="TextureRect" parent="Health"]
+texture_filter = 1
+layout_mode = 2
+texture = ExtResource("2_gbre4")
+stretch_mode = 2
+
+[node name="TextureRect4" type="TextureRect" parent="Health"]
+texture_filter = 1
+layout_mode = 2
+texture = ExtResource("2_gbre4")
+stretch_mode = 2
+
+[node name="ScoreLabel" type="Label" parent="."]
+texture_filter = 1
+layout_mode = 0
+offset_left = 38.0
+offset_top = 15.0
+offset_right = 76.0
+offset_bottom = 24.0
+theme_override_font_sizes/font_size = 6
+text = "00000000000"
+horizontal_alignment = 1
+vertical_alignment = 1
